@@ -1,5 +1,5 @@
 import numpy as np
-
+import globals
 
 class Temporal_Walk(object):
     def __init__(self, learn_data, inv_relation_id, transition_distr):
@@ -90,9 +90,9 @@ class Temporal_Walk(object):
         next_edges = self.neighbors[cur_node]
 
         if step == 1:  # The next timestamp should be smaller than the current timestamp
-            filtered_edges = next_edges[next_edges[:, 3] < cur_ts]
+            filtered_edges = next_edges[next_edges[:, 3] < cur_ts + globals.delta]
         else:  # The next timestamp should be smaller than or equal to the current timestamp
-            filtered_edges = next_edges[next_edges[:, 3] <= cur_ts]
+            filtered_edges = next_edges[next_edges[:, 3] <= cur_ts + globals.delta]
             # Delete inverse edge
             inv_edge = [
                 cur_node,

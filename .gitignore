@@ -2,3 +2,4 @@ output/*
 data/*
 *ipynb_checkpoints/*
 *.log
+*.pyc

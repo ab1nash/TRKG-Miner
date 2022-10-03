@@ -3,6 +3,7 @@ import json
 import itertools
 import numpy as np
 from collections import Counter
+import globals
 
 
 class Rule_Learner(object):
@@ -277,7 +278,7 @@ class Rule_Learner(object):
 
         for cur_rel in body_rels[1:]:
             next_edges = self.edges[cur_rel]
-            mask = (next_edges[:, 0] == cur_node) * (next_edges[:, 3] >= cur_ts)
+            mask = (next_edges[:, 0] == cur_node) * (next_edges[:, 3] >= cur_ts - globals.delta)
             filtered_edges = next_edges[mask]
 
             if len(filtered_edges):
@@ -326,7 +327,7 @@ class Rule_Learner(object):
 
         next_edges = self.edges[body_rels[2]] #post_edge relation
         mask = (next_edges[:, 0] == cur_node) *\
-                (next_edges[:, 3] >= cur_ts) *\
+                (next_edges[:, 3] >= cur_ts - globals.delta) *\
                 (next_edges[:, 2] != next_edge[0])
             
         filtered_edges = next_edges[mask]
@@ -340,7 +341,7 @@ class Rule_Learner(object):
 
         # pre_edge relation inversed
         next_edges = self.edges[self.inv_relation_id[body_rels[0]]]
-        mask = (next_edges[:, 0] == body_ents_tss[0]) * (next_edges[:, 3] <= body_ents_tss[1])
+        mask = (next_edges[:, 0] == body_ents_tss[0]) * (next_edges[:, 3] <= body_ents_tss[1] + globals.delta)
         filtered_edges = next_edges[mask]
 
         if len(filtered_edges):
@@ -379,7 +380,7 @@ class Rule_Learner(object):
             mask = (
                 (head_rel_edges[:, 0] == body[0])
                 * (head_rel_edges[:, 2] == body[-1])
-                * (head_rel_edges[:, 3] > body[-2])
+                * (head_rel_edges[:, 3] > body[-2] - globals.delta)
             )
 
             if True in mask:
@@ -406,7 +407,7 @@ class Rule_Learner(object):
             mask = (
                 (head_rel_edges[:, 0] == body[2])
                 * (head_rel_edges[:, 2] == body[4])
-                * (head_rel_edges[:, 3] >= body[3])
+                * (head_rel_edges[:, 3] >= body[3] - globals.delta)
             )
 
             if True in mask:

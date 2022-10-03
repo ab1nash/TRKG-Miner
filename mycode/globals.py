@@ -1,1 +1,1 @@
-delta = 31
+delta = 7

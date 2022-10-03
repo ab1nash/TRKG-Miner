@@ -2,6 +2,7 @@ import json
 import numpy as np
 import pandas as pd
 from collections import Counter
+import globals
 
 from temporal_walk import store_edges
 
@@ -256,7 +257,7 @@ def get_walks(rule, walk_edges):
     for i in range(1, len(df_edges)):
         rule_walks = pd.merge(rule_walks, df_edges[i], on=["entity_" + str(i)])
         rule_walks = rule_walks[
-            rule_walks["timestamp_" + str(i - 1)] <= rule_walks["timestamp_" + str(i)]
+            rule_walks["timestamp_" + str(i - 1)] <= rule_walks["timestamp_" + str(i)] + globals.delta
         ]
         if not rule["var_constraints"]:
             del rule_walks["entity_" + str(i)]
@@ -306,7 +307,7 @@ def get_acyclic_walks(rule, walk_edges):
         # print("rule_walksPRE",rule_walks)
         rule_walks = pd.merge(rule_walks, df_edges[i], on=["entity_" + str(i)])
         rule_walks = rule_walks[
-            rule_walks["timestamp_" + str(i - 1)] <= rule_walks["timestamp_" + str(i)]
+            rule_walks["timestamp_" + str(i - 1)] <= rule_walks["timestamp_" + str(i)] + globals.delta
         ]
         # print("rule_walksPOST",rule_walks)
         if not rule["var_constraints"] and i != 2:
@@ -361,7 +362,7 @@ def get_walks_complete(rule, walk_edges):
     for i in range(1, len(df_edges)):
         rule_walks = pd.merge(rule_walks, df_edges[i], on=["entity_" + str(i)])
         rule_walks = rule_walks[
-            rule_walks["timestamp_" + str(i - 1)] <= rule_walks["timestamp_" + str(i)]
+            rule_walks["timestamp_" + str(i - 1)] <= rule_walks["timestamp_" + str(i)] + globals.delta
         ]
 
     return rule_walks
