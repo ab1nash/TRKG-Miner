@@ -1,4 +1,4 @@
 output/*
 data/*
-./pynb_checkpoints/*
+*ipynb_checkpoints/*
 *.log
