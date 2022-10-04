@@ -188,14 +188,26 @@ class Rule_Learner(object):
 
         all_bodies.sort()
         unique_bodies = list(x for x, _ in itertools.groupby(all_bodies))
-        body_support = len(unique_bodies)
+        rule_support = len(unique_bodies)
 
-        # print("body support ",body_support)
+        # anti_bodies = []
+        # for _ in range(num_samples):
+        #     sample_successful, body_ents_tss = self.sample_anti_body(
+        #         rule["body_rels"], rule["var_constraints"]
+        #     )
+        #     if sample_successful:
+        #         anti_bodies.append(body_ents_tss)
 
-        confidence, rule_support = 0, 0
-        if body_support:
-            # todo: here
-            rule_support = self.calculate_acyclic_rule_support(unique_bodies, rule["head_rel"])
+        # anti_bodies.sort()
+        # unique_bodies = list(x for x, _ in itertools.groupby(anti_bodies))
+        # antisupport adds additional time complexity.
+        # anti_support = len(unique_bodies)//100
+
+        confidence, body_support = 0, 0
+        if rule_support:
+            # rule_support = self.calculate_acyclic_rule_support(unique_bodies, rule["head_rel"])
+            body_support = rule_support
+            # body_support = rule_support + anti_support
             confidence = round(rule_support / body_support, 6)
 
         return confidence, rule_support, body_support
@@ -250,7 +262,6 @@ class Rule_Learner(object):
         return sample_successful, body_ents_tss
 
     def sample_anti_body(self, body_rels, var_constraints):
-        # TODO: HERE
         """
         Sample a walk according to the rule body.
         The sequence of timesteps should be non-decreasing.
@@ -276,9 +287,16 @@ class Rule_Learner(object):
         body_ents_tss.append(cur_ts)
         body_ents_tss.append(cur_node)
 
-        for cur_rel in body_rels[1:]:
-            next_edges = self.edges[cur_rel]
-            mask = (next_edges[:, 0] == cur_node) * (next_edges[:, 3] >= cur_ts - globals.delta)
+        # for cur_rel in body_rels[1:]:
+        for i in range(len(body_rels[1:])):
+            cur_rel = body_rels[i+1]
+            # adding this will increase time complexity
+            if i==0:
+                next_edges = self.neighbors[cur_node]
+                mask = (next_edges[:, 1] != cur_rel) * (next_edges[:, 3] >= cur_ts - globals.delta)
+            else:
+                next_edges = self.edges[cur_rel]
+                mask = (next_edges[:, 0] == cur_node) * (next_edges[:, 3] >= cur_ts - globals.delta)
             filtered_edges = next_edges[mask]
 
             if len(filtered_edges):

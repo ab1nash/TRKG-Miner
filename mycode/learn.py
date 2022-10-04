@@ -64,7 +64,7 @@ def learn_rules(i, num_relations):
                 if walk_successful:
                     rl.create_rule(walk)
             if length == 3:
-                for _ in range(num_walks//2):
+                for _ in range(num_walks * 2):
                     walk_successful, walk = temporal_walk.sample_acyclic_walk(rel)
                     if walk_successful:
                         rl.create_acyclic_rule(walk)
