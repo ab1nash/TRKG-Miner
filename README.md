@@ -1,8 +1,8 @@
-# RTKG-Miner: Relaxed Temporal Knowledge Graph Miner
+# TRKG-Miner: Relaxed Temporal Knowledge Graph Miner
 
-RTKG-Miner is a framework for link forecasting on knowledge graphs. It mines both cyclic and acyclic rules and uses them to predict links in the knowledge graph.
+TRKG-Miner is a framework for link forecasting on knowledge graphs. It mines both cyclic and acyclic rules and uses them to predict links in the knowledge graph.
 
-Note that the task of link forecasting is quite different from link prediction. While many deep learning based approaches have worked successfully for the latter task, the former remains a challenging problem. RTKG-Miner is a rule-based approach that shows significant improvement over the state-of-the-art approaches for link forecasting.
+Note that the task of link forecasting is quite different from link prediction. While many deep learning based approaches have worked successfully for the latter task, the former remains a challenging problem. TRKG-Miner is a rule-based approach that shows significant improvement over the state-of-the-art approaches for link forecasting.
 
 ### Due credit to Liu et al. for their original implementation of TLogic.
 
