@@ -1,15 +1,16 @@
-# TLogic: Temporal Logical Rules for Explainable Link Forecasting on Temporal Knowledge Graphs
+# RTKG-Miner: Relaxed Temporal Knowledge Graph Miner
 
-This repository contains the code for the paper [TLogic: Temporal Logical Rules for Explainable Link Forecasting on Temporal Knowledge Graphs](https://arxiv.org/abs/2112.08025).
+RTKG-Miner is a framework for link forecasting on knowledge graphs. It mines both cyclic and acyclic rules and uses them to predict links in the knowledge graph.
 
+Note that the task of link forecasting is quite different from link prediction. While many deep learning based approaches have worked successfully for the latter task, the former remains a challenging problem. RTKG-Miner is a rule-based approach that shows significant improvement over the state-of-the-art approaches for link forecasting.
+
+### Due credit to Liu et al. for their original implementation of TLogic.
 
 <h3> How to run </h3>
 
-The dependencies required to run the code are specified in [`pyproject.toml`](https://github.com/liu-yushan/TLogic/blob/main/pyproject.toml). Run `poetry install` to install the dependencies from [`poetry.lock`](https://github.com/liu-yushan/TLogic/blob/main/poetry.lock). For more information about Poetry, a tool for dependency management and packaging in Python, see https://python-poetry.org/docs/.
-
-The commands for running TLogic and recreating the results from the paper can be found in [`run.txt`](https://github.com/liu-yushan/TLogic/blob/main/mycode/run.txt).
-
-[`demo.ipynb`](https://github.com/liu-yushan/TLogic/blob/main/mycode/demo.ipynb) contains a demonstration of the components rule learning and rule application.
+1. Create a new python environment.
+2. Run `poetry install` to install the dependencies from `poetry.lock`.
+3. The commands for recreating the results from the paper can be found in `run.txt`.
 
 
 <h3> Datasets </h3>
